@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 int main() {
   int estudiantes;
@@ -6,7 +7,13 @@ int main() {
   printf("Ingrese el numero de estudiantes: ");
   scanf("%d", &estudiantes);
 
-  float calificaciones[estudiantes][3];
+  float (*calificaciones)[3];
+  calificaciones = malloc(estudiantes * sizeof(*calificaciones));
+
+  if (calificaciones == NULL) {
+    printf("Error al reservar memoria\n");
+    return 1;
+  }
 
   printf("\nSistema de gestion de calificaciones\n");
 
@@ -90,5 +97,6 @@ int main() {
     printf("\nReprobados: %d \n", reprobados);
   }
 
+  free(calificaciones);
   return 0;
 }
